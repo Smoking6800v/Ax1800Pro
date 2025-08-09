@@ -144,7 +144,7 @@ jobs:
       with:
         name: ${{ env.SOURCE_REPO }}-bin-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
         path: |
-          ${{ env.OPENWRT_PATH }}/**/*.bin
+          ${{ env.OPENWRT_PATH }}/bin
 
     - name: Organize Files(整理文件)
       if: steps.compile.outputs.status == 'success'
