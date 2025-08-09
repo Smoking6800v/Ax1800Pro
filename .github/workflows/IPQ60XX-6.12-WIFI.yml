@@ -123,6 +123,7 @@ jobs:
         name: ${{ env.SOURCE_REPO }}-use-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
         path: |
           ${{ env.OPENWRT_PATH }}/dl/
+          ${{ env.OPENWRT_PATH }}/feeds/nss_packages
 
     - name: Compile Firmware(开始编译固件)
       id: compile
