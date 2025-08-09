@@ -115,7 +115,7 @@ jobs:
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
-        #find dl -size -1024c -exec rm -f {} \;
+        find dl -size -1024c -exec rm -f {} \;
         
     #- name: Upload Use Software To Artifact(将使用软件上传到Artifact)
       #uses: actions/upload-artifact@main
@@ -144,9 +144,8 @@ jobs:
       with:
         name: ${{ env.SOURCE_REPO }}-bin-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
         path: |
-          ${{ env.OPENWRT_PATH }}/bin
+          ${{ env.OPENWRT_PATH }}/*
           ${{ env.OPENWRT_PATH }}/package
-          ${{ env.OPENWRT_PATH }}/build_dir
 
     - name: Organize Files(整理文件)
       if: steps.compile.outputs.status == 'success'
@@ -164,7 +163,7 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: ${{ env.SOURCE_REPO }}-firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE_PATH }}
+        path: ${{ env.FIRMWARE_PATH }}/**/*.bin
 
     - name: Upload Firmware To Release(发布固件)
       if: steps.compile.outputs.status == 'success' && env.FIRMWARE_RELEASE == 'true'
