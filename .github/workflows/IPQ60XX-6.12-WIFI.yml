@@ -117,12 +117,12 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         #find dl -size -1024c -exec rm -f {} \;
         
-    - name: Upload Use Software To Artifact(将使用软件上传到Artifact)
-      uses: actions/upload-artifact@main
-      with:
-        name: ${{ env.SOURCE_REPO }}-use-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
-        path: |
-          ${{ env.OPENWRT_PATH }}/dl/
+    #- name: Upload Use Software To Artifact(将使用软件上传到Artifact)
+      #uses: actions/upload-artifact@main
+      #with:
+        #name: ${{ env.SOURCE_REPO }}-use-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
+        #path: |
+          #${{ env.OPENWRT_PATH }}/dl/
 
     - name: Compile Firmware(开始编译固件)
       id: compile
@@ -143,7 +143,9 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: ${{ env.SOURCE_REPO }}-bin-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
-        path: ${{ env.OPENWRT_PATH }}
+        path: |
+          ${{ env.OPENWRT_PATH }} /bin
+          ${{ env.OPENWRT_PATH }} /package
 
     - name: Organize Files(整理文件)
       if: steps.compile.outputs.status == 'success'
